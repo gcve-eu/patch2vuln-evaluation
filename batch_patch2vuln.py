@@ -46,7 +46,7 @@ def sha256_file(path: Path) -> str:
 def normalize_commit_url(value: str) -> tuple[str, str]:
     """Return (canonical .patch URL, case key) for a GitHub commit."""
     parsed = urlsplit(value.strip())
-    if parsed.scheme != "https" or parsed.hostname not in ("github.com", "www.github.com"):
+    if  not(parsed.scheme.startswith("http")) or parsed.hostname not in ("github.com", "www.github.com"):
         raise ValueError("expected an https://github.com/OWNER/REPO/commit/SHA URL")
     if parsed.username or parsed.password or parsed.port:
         raise ValueError("GitHub URLs must not contain credentials or a custom port")
